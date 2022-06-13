@@ -11,7 +11,7 @@ const Form = () => {
   };
   const [formValues, setFormValues] = useState(initialValues);
   const [, setIsSubmit] = useState(false);
-  const [showDetails, setShowDetails] = useState(false)
+  // const [showDetails, setShowDetails] = useState(false)
 
   // const [username, setUsername] = useState("");
   // const [descrip, setdescrip] = useState("");
@@ -32,7 +32,7 @@ const Form = () => {
     setIsSubmit(true);
     console.log("Submitted");
     console.log(formValues);
-    setShowDetails(true)
+    // setShowDetails(true)
     document.getElementsByName("username").value="";
     document.getElementsByName("email").value="";
     document.getElementsByName("phone").value="";
@@ -173,8 +173,8 @@ const Form = () => {
             </p>
           </form>
         </div>
-        {showDetails && <div>
-        {JSON.stringify(formValues)}</div>}
+        {/* {showDetails && <div>
+        {JSON.stringify(formValues)}</div>} */}
       </div>
       
 

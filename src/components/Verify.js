@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import {  useNavigate } from "react-router-dom";
 import { initializeApp } from "firebase/app";
-import Button from "./Button";
+// import Button from "./Button";
 
 // import Form from "./components/Form";
 import {
@@ -198,15 +198,15 @@ const Verify = () => {
          <input id="otp" placeholder="  Enter OTP " onChange={handleChange} />
        </div>
           <div id="btn">
-            {/* <button
+            <button
               type="button"
               className="btn btn-primary"
               style={{ marginTop: "20px", marginBottom: "40px" , marginLeft:"720px"}}
               onClick={handleclick2}
             >
               Verify
-            </button> */}
-            <Button handleclick = {handleclick2}/>
+            </button>
+            {/* <Button handleclick = {handleclick2}/> */}
           </div>
 
           <div className="text-center">
