@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import {  useNavigate } from "react-router-dom";
 import { initializeApp } from "firebase/app";
+import Button from "./Button";
 
 // import Form from "./components/Form";
 import {
@@ -27,8 +28,9 @@ const Verify = () => {
     setsrc(
       "https://www.efilecabinet.com/wp-content/uploads/2020/04/otp-icon.png"
     );
-    setPhoneNumber("");
+    document.getElementById("mobile").value="";
     setIsclicked(true);
+    // alert("OTP has been sent")
   };
 
   //-->NEW
@@ -118,6 +120,7 @@ const Verify = () => {
       .then((result) => {
         // User signed in successfully.
         // const user = result.user;
+        document.getElementsByName("otp").value="";
         console.log("Success login");
         navigate("/Form");
 
@@ -166,7 +169,7 @@ const Verify = () => {
          </div>
 
          <div  className="text-center func" >
-          <input placeholder="  Enter Phone Number " onChange={handleChange} />
+          <input id="mobile" placeholder="  Enter Phone Number " onChange={handleChange} />
         </div>
 
           <div id="btn ">
@@ -192,21 +195,22 @@ const Verify = () => {
         </div>
 
         <div  className="text-center func" >
-         <input placeholder="  Enter Phone Number " onChange={handleChange} />
+         <input id="otp" placeholder="  Enter OTP " onChange={handleChange} />
        </div>
           <div id="btn">
-            <button
+            {/* <button
               type="button"
               className="btn btn-primary"
               style={{ marginTop: "20px", marginBottom: "40px" , marginLeft:"720px"}}
               onClick={handleclick2}
             >
               Verify
-            </button>
+            </button> */}
+            <Button handleclick = {handleclick2}/>
           </div>
 
           <div className="text-center">
-           Didn't received the verification otp? <p style={{cursor:"pointer"}} onClick={handleclick3}> Resend again  </p>
+           Didn't received the verification otp? <p onClick={handleclick3} style={{cursor:"pointer"}} > Resend again  </p>
           </div>
           </>
         )}

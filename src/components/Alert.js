@@ -1,10 +1,10 @@
 import React from "react";
 
-const Alert = (props) => {
+const Alert = () => {
   return (
     <div>
       <div className="alert alert-primary" role="alert">
-        {props.message}
+        Check the console after filling the form (ctrl+shift+j)
       </div>
     </div>
   );

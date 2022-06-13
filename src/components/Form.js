@@ -11,9 +11,11 @@ const Form = () => {
   };
   const [formValues, setFormValues] = useState(initialValues);
   const [, setIsSubmit] = useState(false);
-  const [username, setUsername] = useState("");
-  const [descrip, setdescrip] = useState("");
-  const [email, setEmail] = useState("");
+  const [showDetails, setShowDetails] = useState(false)
+
+  // const [username, setUsername] = useState("");
+  // const [descrip, setdescrip] = useState("");
+  // const [email, setEmail] = useState("");
   // const [list, setlist] = useState([]);
 
   const handleChange = (e) => {
@@ -26,13 +28,16 @@ const Form = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    setUsername("");
+   
     setIsSubmit(true);
     console.log("Submitted");
     console.log(formValues);
-    setUsername("");
-    setdescrip("");
-    setEmail("");
+    setShowDetails(true)
+    document.getElementsByName("username").value="";
+    document.getElementsByName("email").value="";
+    document.getElementsByName("phone").value="";
+    document.getElementsByName("website").value="";
+    document.getElementsByName("descrip").value="";
     // const data = { username, email };
     // if (username && email) {
     //   setlist((ls) => [...ls, data]);
@@ -168,7 +173,10 @@ const Form = () => {
             </p>
           </form>
         </div>
+        {showDetails && <div>
+        {JSON.stringify(formValues)}</div>}
       </div>
+      
 
       {/* {list.map((a) => (
         <div>
