@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "express": "^4.18.1",
+    "firebase": "^9.8.2",
+    "react-router-dom": "^6.3.0",
+    "twilio": "^3.77.2"
+  }
+}
