@@ -1,58 +1,65 @@
 import React, { useState, useEffect } from "react";
-import {  useNavigate } from "react-router-dom";
-import { initializeApp } from "firebase/app";
-// import Button from "./Button";
+import { useNavigate } from "react-router-dom";
 
-// import Form from "./components/Form";
-import {
-  getAuth,
-  RecaptchaVerifier,
-  signInWithPhoneNumber,
-} from "firebase/auth";
+import { initializeApp } from "firebase/app";
+import {getAuth, RecaptchaVerifier, signInWithPhoneNumber,} from 'firebase/auth'
+
 
 const Verify = () => {
-  const [src, setsrc] = useState(
-    "https://miro.medium.com/max/400/1*rmcCGvWTSmPLeRrSEiDMGw.png"
-  );
 
-  // document.getElementById("para").innerHTML="You will get otp via sms"
-  
-  const [isClicked, setIsclicked] = useState(false);
+  const [src, setSrc] = useState("https://miro.medium.com/max/400/1*rmcCGvWTSmPLeRrSEiDMGw.png");
+  const [isClicked, setIsClicked] = useState(false);
   const [firebaseApp, setFirebaseApp] = useState(null);
-  const [phoneNumber, setPhoneNumber] = useState(null);
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [otp, setOtp] = useState("");
+
   const navigate = useNavigate();
 
-  const handleclick = async () => {
-    // alert("Clicked");
+  const handleClick = async () => {
     await authEngine();
-    setsrc(
-      "https://www.efilecabinet.com/wp-content/uploads/2020/04/otp-icon.png"
-    );
-    document.getElementById("mobile").value="";
-    setIsclicked(true);
-    // alert("OTP has been sent")
+    setSrc("https://as1.ftcdn.net/v2/jpg/05/20/64/92/1000_F_520649296_C25HWe6PzZrBDb2Z2vUrwRZnakhsMlmn.jpg");
+    document.getElementById("mobile").value = "";
+    setIsClicked(true);
   };
 
-  //-->NEW
-
-  const handleChange = async (e) => {
-    console.log(e.target.value);
+  const handleChangePhoneNumber = (e) => {
     setPhoneNumber(e.target.value);
-    
   };
 
- 
+  const handleChangeOTP = (e) => {
+    setOtp(e.target.value);
+  };
+
+  const handleClick2 = async () => {
+    const code = otp;
+
+    window.confirmationResult
+      .confirm(code)
+      .then((result) => {
+        document.getElementById("otp").value = "";
+        console.log("Success login");
+        navigate("/Form");
+      })
+      .catch((error) => {
+        console.log(error);
+        alert("Please enter a valid OTP");
+      });
+  };
+
+  const handleClick3 = () => {
+    alert("OTP has been resent");
+  };
 
   useEffect(() => {
     const tempEngine = async () => {
       const firebaseConfig = {
-        apiKey: "AIzaSyCgafm44TP_T8GSDVNy5aZRQFUzUdJJ0l4",
-        authDomain: "otp-generator-91e8d.firebaseapp.com",
-        projectId: "otp-generator-91e8d",
-        storageBucket: "otp-generator-91e8d.appspot.com",
-        messagingSenderId: "851259247148",
-        appId: "1:851259247148:web:b71d8132e0ffa959f8df89",
-        measurementId: "G-BD8QVLMNS2",
+        apiKey: "AIzaSyCQcmTfHxXlHKA2AGzRIyO652M2ESOw5a4",
+        authDomain: "verify-7159d.firebaseapp.com",
+        projectId: "verify-7159d",
+        storageBucket: "verify-7159d.appspot.com",
+        messagingSenderId: "553469772002",
+        appId: "1:553469772002:web:25f36571a344f92de65ebb",
+        measurementId: "G-6JQ9ZVBPFH"
       };
       const app = initializeApp(firebaseConfig);
       setFirebaseApp(app);
@@ -62,158 +69,142 @@ const Verify = () => {
 
   const authEngine = async () => {
     if (firebaseApp) {
-      // console.log("in here");
       const auth = getAuth();
       auth.languageCode = "en";
-      console.log(auth);
       window.recaptchaVerifier = new RecaptchaVerifier(
         "sign-in-button",
         {
           size: "invisible",
           callback: (response) => {
-            // console.log("callback response");
-            // reCAPTCHA solved, allow signInWithPhoneNumber.
             onSignInSubmit();
           },
         },
         auth
       );
       onSignInSubmit();
-      // console.log("done with recaptcha");
     } else {
-      // console.log("not here");
+      console.log("Firebase app is not initialized");
     }
   };
 
   const onSignInSubmit = async () => {
+
     if (phoneNumber) {
-      // console.log("number done");
-      console.log(window.recaptchaVerifier);
       const appVerifier = window.recaptchaVerifier;
       const auth = getAuth();
       signInWithPhoneNumber(auth, phoneNumber, appVerifier)
         .then((confirmationResult) => {
-          // SMS sent. Prompt user to type the code from the message, then sign the
-          // user in with confirmationResult.confirm(code).
-          // console.log("done");
           window.confirmationResult = confirmationResult;
           console.log("OTP has been sent to your Number");
-          // ...
         })
         .catch((error) => {
-          // Error; SMS not sent
           console.log(error);
-          // console.log("otp is Invalid");
-          // ...
         });
     } else {
-      // console.log("number not done");
+      console.log("Phone number is required");
     }
   };
 
-  const handleclick2 = async () => {
-    // alert("Clicked");
-    const code = phoneNumber;
-    // console.log("hey");
-    window.confirmationResult
-      .confirm(code)
-      .then((result) => {
-        // User signed in successfully.
-        // const user = result.user;
-        document.getElementsByName("otp").value="";
-        console.log("Success login");
-        navigate("/Form");
-
-        // ...
-      })
-      .catch((error) => {
-        // User couldn't sign in (bad verification code?)
-        // ...
-        console.log(error);
-        alert("Please enter a valid otp ");
-      });
-  };
-
-
-    //-->NEW
-
-  const handleclick3=()=>{
-    alert("OTP has been resent")
-  }
-
-
-
   return (
+    
     <>
-      <div  className="text-center">
+    {/* Image */}
+      <div className="text-center">
         <img
           className="header-logo mb-4"
           style={{ height: "300px", marginTop: "100px" }}
           src={src}
-          alt="Zomato-logo"
+          alt="Logo"
         />
       </div>
-      <div  className="text-center">
+
+          {/* H1 */}
+      <div className="text-center">
         <h1>Verification</h1>
       </div>
+
       <div>
-       
-       
         {!isClicked ? (
           <>
-           <div  className="text-center" id="para">
-           <p>
-             we will send you One Time Code
-             <br /> on your phone number
-           </p>
-         </div>
+             {/* para */}
+            <div className="text-center" id="para">
+              <p>
+                We will send you a One Time Code on your phone number
+                <br /> 
+                Please Enter your Country code also
+              </p>
+            </div>
+              
+            {/* Input */}
+            <div className="text-center func">
+              <input
+                id="mobile"
+                placeholder="Enter Phone Number"
+                onChange={handleChangePhoneNumber}
+              />
+            </div>
 
-         <div  className="text-center func" >
-          <input id="mobile" placeholder="  Enter Phone Number " onChange={handleChange} />
-        </div>
+            {/* Get OTP */}
+            <div id="btn">
+              <button
+                type="button"
+                className="btn btn-primary"
+                style={{
+                  marginTop: "20px",
+                  marginBottom: "40px",
+                  marginLeft: "716px",
+                }}
+                onClick={handleClick}
+                id="sign-in-button"
+              >
+                Get OTP
+              </button>
+            </div>
 
-          <div id="btn ">
-            <button 
-              type="button"
-              className="btn btn-primary "
-
-              style={{ marginTop: "20px", marginBottom: "40px", marginLeft:"716px" }}
-              onClick={handleclick}
-              id="sign-in-button"
-            >
-              Get OTP
-            </button>
-          </div>
-          
-         </>
+          </>
         ) : (
           <>
-          <div  className="text-center" id="para">
-          <p>
-           You will get a opt via sms
-          </p>
-        </div>
+                {/* para */}
+            <div className="text-center" id="para">
+              <p>You will receive an OTP via SMS</p>
+            </div>
 
-        <div  className="text-center func" >
-         <input id="otp" placeholder="  Enter OTP " onChange={handleChange} />
-       </div>
-          <div id="btn">
-            <button
-              type="button"
-              className="btn btn-primary"
-              style={{ marginTop: "20px", marginBottom: "40px" , marginLeft:"720px"}}
-              onClick={handleclick2}
-            >
-              Verify
-            </button>
-            {/* <Button handleclick = {handleclick2}/> */}
-          </div>
+            {/* input */}
+            <div className="text-center func">
+              <input
+                id="otp"
+                placeholder="Enter OTP"
+                onChange={handleChangeOTP}
+              />
+            </div>
+              
+              {/* Submit OTP */}
+            <div id="btn">
+              <button
+                type="button"
+                className="btn btn-primary"
+                style={{
+                  marginTop: "20px",
+                  marginBottom: "40px",
+                  marginLeft: "720px",
+                }}
+                onClick={handleClick2}
+              >
+                Verify
+              </button>
+            </div>
 
-          <div className="text-center">
-           Didn't received the verification otp? <p onClick={handleclick3} style={{cursor:"pointer"}} > Resend again  </p>
-          </div>
+            {/* Resend OTP? */}
+            <div className="text-center">
+              Didn't receive the verification OTP?{" "}
+              <p onClick={handleClick3} style={{ cursor: "pointer" }}>
+                Resend
+              </p>
+            </div>
+
           </>
         )}
+
       </div>
     </>
   );

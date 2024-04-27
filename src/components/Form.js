@@ -13,68 +13,19 @@ const Form = () => {
   const [, setIsSubmit] = useState(false);
   // const [showDetails, setShowDetails] = useState(false)
 
-  // const [username, setUsername] = useState("");
-  // const [descrip, setdescrip] = useState("");
-  // const [email, setEmail] = useState("");
-  // const [list, setlist] = useState([]);
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormValues({ ...formValues, [name]: value });
-    // setUsername(e.target.value);
-    // setEmail(e.target.value);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-   
     setIsSubmit(true);
     console.log("Submitted");
     console.log(formValues);
     // setShowDetails(true)
-    document.getElementsByName("username").value="";
-    document.getElementsByName("email").value="";
-    document.getElementsByName("phone").value="";
-    document.getElementsByName("website").value="";
-    document.getElementsByName("descrip").value="";
-    // const data = { username, email };
-    // if (username && email) {
-    //   setlist((ls) => [...ls, data]);
-    // }
   };
-
-  // JSON
-
-  // let movies = [];
-  // // example {id:1592304983049, title: 'Deadpool', year: 2015}
-  // const submit = (ev)=>{
-  //     ev.preventDefault();  //to stop the form submitting
-  //     let movie = {
-  //         id: data.now(),
-  //         username: document.getElementById('username').value,
-  //         email: document.getElementById('email').value,
-  //         phone: document.getElementById('phone').value,
-  //         website: document.getElementById('website').value,
-  //         descrip: document.getElementById('descrip').value
-  //     }
-  //     movies.push(movie);
-  //     document.forms[0].reset(); // to clear the form for the next entries
-  //     //document.querySelector('form').reset();
-
-  //     //for display purposes only
-  //     console.warn('added' , {movies} );
-  //     let pre = document.querySelector('#msg pre');
-  //     pre.textContent = '\n' + JSON.stringify(movies, '\t', 2);
-
-  //     //saving to localStorage
-  //     localStorage.setItem('MyMovieList', JSON.stringify(movies) );
-  // }
-  // document.addEventListener('DOMContentLoaded', ()=>{
-  //     document.getElementById('btn').addEventListener('click', submit);
-  // });
-
-  // JSON
 
   return (
     <>
@@ -169,21 +120,13 @@ const Form = () => {
             </button>
 
             <p style={{ marginLeft: "180px", padding: "25px" }}>
-              Design by <a href="/">Colorlib</a>
+              Design by <a href="/">Retry</a>
             </p>
           </form>
         </div>
         {/* {showDetails && <div>
         {JSON.stringify(formValues)}</div>} */}
       </div>
-      
-
-      {/* {list.map((a) => (
-        <div>
-          <li key="{username}">{a.username}</li>
-          <li key="{email}">{a.email}</li>
-        </div>
-      ))} */}
     </>
   );
 };

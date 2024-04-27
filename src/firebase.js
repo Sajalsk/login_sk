@@ -1,15 +1,18 @@
-import firebase from 'firebase/compat/app';
-import 'firebase/compat/auth';
-import 'firebase/compat/firestore';
 
-const config={
-    apiKey: "AIzaSyDvYGs4ugNbKYQpZNCH5SmoldBPs3NJQ7g",
-    authDomain: "verify-otp-6fe5c.firebaseapp.com",
-    projectId: "verify-otp-6fe5c",
-    storageBucket: "verify-otp-6fe5c.appspot.com",
-    messagingSenderId: "464402392235",
-    appId: "1:464402392235:web:c19403cb1110d30f14c3ee"
-}
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
 
-firebase.initializeApp(config);
-export default firebase
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCQcmTfHxXlHKA2AGzRIyO652M2ESOw5a4",
+  authDomain: "verify-7159d.firebaseapp.com",
+  projectId: "verify-7159d",
+  storageBucket: "verify-7159d.appspot.com",
+  messagingSenderId: "553469772002",
+  appId: "1:553469772002:web:25f36571a344f92de65ebb",
+  measurementId: "G-6JQ9ZVBPFH"
+};
+
+
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
